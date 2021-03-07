@@ -12,8 +12,10 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from pathlib import Path
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'products',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +57,7 @@ ROOT_URLCONF = 'stripePayment.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -99,6 +102,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -118,3 +123,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STRIPE_PUBLIC_KEY = "pk_test_51IJverIlGmW9YyfzwIpEwLruUg4TZMDmn0qHH8p2HAXTctXJHqLna32vPdTZD7wNa4r1CEkaWDfwKJeg1o3f1blE00rfdrfM43"
+STRIPE_SECRET_KEY = "sk_test_51IJverIlGmW9YyfzyyZq9xy2gKSOFpPplotL4IwbNBM0GD4bSDBGX4vKtHFkPiXNqHgkUKzyWVfeHIp0xTydeorq00aw6hLJw1"
+STRIPE_WEBHOOK_SECRET = "whsec_OYMbntw9Potdz3qkOXJYiKC7CoJQBD9m"
+
+#Settings to send mail
+EMAIL_USE_TLS=True
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_HOST_USER='ourtechprojects@gmail.com'
+EMAIL_HOST_PASSWORD='wepwaidpphzkqnrg'
+EMAIL_PORT=587
